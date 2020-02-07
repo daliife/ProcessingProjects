@@ -19,7 +19,7 @@ class HScrollbar {
     newspos = spos;
     sposMin = xpos;
     sposMax = xpos + swidth - sheight;
-    loose = l;
+    loose = 5;//l;
   }
 
   void update() {
@@ -58,23 +58,26 @@ class HScrollbar {
   void display() {
  
     //Back line
-    stroke(100,100,100,100);
-    strokeWeight(2);
+    stroke(255);
+    strokeWeight(4);
     line(xpos+sheight/2, ypos+sheight/2, xpos+swidth-sheight/2, ypos+sheight/2);
+    
+    //Slider zone
+    noStroke();
+    fill(255,0,0);
+    //rect(xpos, ypos, swidth, sheight);
     
     //Slider handle
     if (over || locked) 
       fill(102, 102, 102);      
     else
       fill(0, 0, 0);
+
+    stroke(255);
+    strokeWeight(4);
+    circle(spos, ypos+sheight/2, sheight);
     
-    rect(spos, ypos, sheight, sheight); 
-    //circle(spos, ypos+sheight/2, sheight);
-    
-    //Slider zone
-    noStroke();
-    fill(204);
-    rect(xpos, ypos, swidth, sheight);
+
     
   }
 
