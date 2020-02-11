@@ -28,7 +28,6 @@ void draw(){
   ring_slider.display(); 
   ring_value = (TWO_PI * NUM_CIRCLES_ALLOWED * ring_slider.getPos());
   //ring_value = ring_value - ring_value%0.1; //ROUNDING, BUT PROBLEM IS SCROLLBAR
-  print(ring_slider.getPos(), "\n");
   drawCircles(); 
 }
 
@@ -53,23 +52,24 @@ private void drawCircles(){
     noFill();
     arc(0, 0, OUTER_RADIUS, OUTER_RADIUS, -HALF_PI + ring_value, -HALF_PI + ring_value + 0.05);
         
-     float val = -PI + ring_value;
+    float val = -PI + ring_value;
+    float textSize = 14.0f;
         
     //Circle blocker draw
     fill(255,0,0);
     noStroke();
     circle((OUTER_RADIUS/2) * sin(-val), (OUTER_RADIUS/2) * cos(-val), INNER_RADIUS);
+
+    //Icon indicator
+    tint(255, 50);
+    image(img, -textSize, -(OUTER_RADIUS/2) - textSize ); 
+    img.resize((int)textSize*2, (int)textSize*2);
     
     //Value indicator 
     fill(0);
-    float textSize = 16.0f;
     textSize(textSize);
     String r = nf(ring_value, 1, 1);
     float rw = textWidth(r);
     text(r, ((OUTER_RADIUS/2) * sin(-val)) - rw/2, (OUTER_RADIUS/2) * cos(-val) + textSize/4 ); 
-    
-    //Icon indicator
-    //image(img, ((OUTER_RADIUS/2) * sin(-val)) - textSize, (OUTER_RADIUS/2) * cos(-val) - textSize ); 
-    //img.resize((int)textSize*2, (int)textSize*2);
-
+   
 }

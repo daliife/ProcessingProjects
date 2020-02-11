@@ -1,4 +1,4 @@
- class HScrollbar {
+class HScrollbar {
   int swidth, sheight;    // width and height of bar
   float xpos, ypos;       // x and y position of bar
   float spos, newspos;    // x position of slider
@@ -13,14 +13,13 @@
     sheight = sh;
     int widthtoheight = sw - sh;
     ratio = (float)sw / (float)widthtoheight;
-    print(ratio);
     xpos = xp;
     ypos = yp-sheight/2;
     spos = xpos + swidth/2 - sheight/2;
     newspos = spos;
     sposMin = xpos;
     sposMax = xpos + swidth - sheight;
-    loose = 10;//l;
+    loose = 6;//l;
   }
 
   void update() {
@@ -59,31 +58,28 @@
   void display() {
  
     //Back line
-    stroke(255);
-    strokeWeight(4);
+    stroke(100,100,100,100);
+    strokeWeight(2);
     line(xpos+sheight/2, ypos+sheight/2, xpos+swidth-sheight/2, ypos+sheight/2);
-    
-    //Slider zone
-    noStroke();
-    fill(255,0,0);
-    //rect(xpos, ypos, swidth, sheight);
     
     //Slider handle
     if (over || locked) 
-      fill(200, 200, 200);      
+      fill(102, 102, 102);      
     else
       fill(0, 0, 0);
-
-    stroke(255);
-    strokeWeight(4);
-    circle(spos, ypos+sheight/2, sheight);
-     
+    rect(spos, ypos, sheight, sheight); 
+    //circle(spos, ypos+sheight/2, sheight);
+    
+    //Slider zone
+    noStroke();
+    fill(204);
+    rect(xpos, ypos, swidth, sheight);
+    
   }
 
   float getPos() {
     // Convert spos to be values between
     // 0 and the total width of the scrollbar
-    print((float)abs(spos-xpos)/(float)swidth, TAB, (float)abs(spos-xpos), TAB, (float)swidth, "\n");
     return abs(spos-xpos)/swidth;
   }
 }
