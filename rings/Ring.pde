@@ -1,37 +1,32 @@
 class Ring{
-  
-  //Ring variables
   float value;
   float radius;
   float thickness;
   PVector rgb = new PVector(0.0,0.0,0.0); 
-  
-  //Scrollbar variables
-  Scrollbar slider;
   PImage img;
+  Scrollbar slider;
   
   Ring(float value, float radius, float thickness, PVector rgb){
     this.value = value;
     this.radius = radius;
     this.thickness = thickness;
     this.rgb = rgb;
-    slider = new Scrollbar(width - width/3,random(0,height), width/5, 16, 1);
+    slider = new Scrollbar(width*3/4,random(100,height-100), width/5, 16, 10, rgb);
     img = loadImage("arrow.png");
   }
   
   void update(){
-    updateSlider();
     updateRing();
+    updateSlider();
   }
 
   void updateRing(){
-    
+   
+    float val = -PI + value;
+    float textSize = 20.0f;
+    String r = nf(value, 1, 1);
     value = TWO_PI * 3 * slider.getPos();
     
-    float val = -PI + value;
-    float textSize = 14.0f;
-    String r = nf(value, 1, 1);
-    float rw = textWidth(r);
     translate(width/2, height/2);
     
     //Shadow arc
@@ -52,14 +47,15 @@ class Ring{
 
     //Icon indicator
     tint(255, 255); 
-    //image(img, -textSize, -(radius/2) - textSize ); 
     image(img, ((radius/2) * sin(-val)) - textSize, (radius/2) * cos(-val) - textSize ); 
     img.resize((int)textSize*2, (int)textSize*2);
     
     //Value indicator 
-    //fill(0); textSize(textSize);
-    //text(r, ((radius/2) * sin(-val)) - rw/2, (radius/2) * cos(-val) + textSize/4 );  
-  
+    fill(255); textSize(textSize);
+    text(r.toString(), width/2*3/4 + width/12, -height/2 + slider.ypos + textSize*0.75);  
+    
+    translate(-width/2, -height/2);
+    
   }
   
   void updateSlider(){

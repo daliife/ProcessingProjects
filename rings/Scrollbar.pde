@@ -6,8 +6,9 @@
   int loose;              // how loose/heavy
   boolean over;           // is the mouse over the slider?
   boolean locked;
+  PVector sliderColor;
 
-  Scrollbar (float xp, float yp, int sw, int sh, int l) {
+  Scrollbar (float xp, float yp, int sw, int sh, int l, PVector rgb) {
     swidth = sw;
     sheight = sh;
     xpos = xp;
@@ -17,6 +18,7 @@
     sposMin = xpos;
     sposMax = xpos + swidth - sheight;
     loose = l;
+    sliderColor = rgb;
   }
 
   void update() {
@@ -55,31 +57,29 @@
   void display() {
      
     //Back line
-    stroke(255);
-    strokeWeight(2);
+    stroke(sliderColor.x, sliderColor.y, sliderColor.z);
+    strokeWeight(6);
     line(xpos+sheight/2, ypos+sheight/2, xpos+swidth-sheight/2, ypos+sheight/2);
     
     //Slider zone
-    noStroke();
-    fill(255,0,0);
+    fill(sliderColor.x, sliderColor.y, sliderColor.z);
     //rect(xpos, ypos, swidth, sheight);
     
     //Slider handle
     if (over || locked) 
-      fill(200, 200, 200);      
+      fill(0,0,0);      
     else
-      fill(0, 0, 0);
+      fill(sliderColor.x, sliderColor.y, sliderColor.z);
 
-    stroke(255);
+    stroke(sliderColor.x, sliderColor.y, sliderColor.z);
     strokeWeight(2);
-    circle(spos, ypos+sheight/2, sheight);
+    circle(spos, ypos+sheight/2, sheight*1.5);
      
   }
 
   float getPos() {
     // Convert spos to be values between
     // 0 and the total width of the scrollbar
-    //print((float)abs(spos-xpos)/(float)swidth, TAB, (float)abs(spos-xpos), TAB, (float)swidth, "\n");
     return abs(spos-xpos)/swidth;
   }
 }
