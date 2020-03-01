@@ -13,7 +13,7 @@ class Ring{
     this.thickness = thickness;
     this.maxCircles = maxCircles;
     this.rgb = rgb;
-    slider = new Scrollbar(width*3/4,random(100,height-100), width/5, 16, 10, rgb);
+    slider = new Scrollbar(width-150,round(random(100,height-100)), width/6, 16, 10, rgb);
     img = loadImage("arrow.png");
   }
   
@@ -25,13 +25,13 @@ class Ring{
   void updateRing(){
    
     float val = -PI + value;
-    float textSize = thickness * 40.0f / 120.0f;
+    float textSize = 14.0f;
     String r = (nf((value*100/(maxCircles*6)), 1, 1)).toString() + "%";
     value = TWO_PI * maxCircles * slider.getPos(); 
     translate(width/2, height/2);
     
     //Shadow arc
-    stroke(128,128,128, 50); strokeWeight(thickness); noFill();
+    stroke(128,128,128, 40); strokeWeight(thickness); noFill();
     arc(0, 0, radius, radius, -HALF_PI, -HALF_PI + TWO_PI);
     
     //Main arc
@@ -53,7 +53,7 @@ class Ring{
     
     //Value indicator 
     fill(255); textSize(textSize);
-    text(r, width/2*3/4 + width/12, -height/2 + slider.ypos + textSize*0.75);  
+    text(r, width/3, -height/2 + slider.ypos + textSize*2);  
     
     translate(-width/2, -height/2);
     
